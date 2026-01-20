@@ -10,6 +10,7 @@ const app = express()
 app.use(cors({
     origin: [
         "https://finora.vercel.app",
+        "https://finora-sandy.vercel.app",
         "http://localhost:3000",
         "http://192.168.0.100:3000"
     ],
