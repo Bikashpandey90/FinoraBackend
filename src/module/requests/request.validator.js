@@ -11,7 +11,7 @@ const BUSINESS_TYPES = [
 const FINANCE_MANAGEMENT = [
     "Outside firm",
     "It's messy right now",
-    "In-house accountant/bookkeeper",
+    "In-house accountant",
     "I do it myself",
 ];
 
