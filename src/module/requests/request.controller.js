@@ -1,4 +1,4 @@
-const authSvc = require("../auth/auth.service");
+const { formatDateTOYMD } = require("../../helper/utils");
 const requestSvc = require("./request.service");
 
 class RequestController {
@@ -8,7 +8,10 @@ class RequestController {
             let data = req.body
             console.log("Request Data", data)
             const request = await requestSvc.createRequest(data);
-            await requestSvc.sendConfirmation(data.name, request._id, data.businessEmail)
+            const date = formatDateTOYMD(data.createdAt)
+            console.log(date)
+            console.log(data.createdAt)
+            await requestSvc.sendConfirmation(data.name, request._id, data.businessEmail, date)
 
             res.json({
                 data: request,
@@ -26,11 +29,16 @@ class RequestController {
         try {
             const id = req.params.id
             const request = await requestSvc.getSingleRequestByFilter({ _id: id })
+            if (request.status === 'active') {
+                return res.json({
+                    message: "Already Validated"
+                })
+            }
 
             request.status = 'active';
             await request.save()
-
-            await requestSvc.sendApproved(request.name, request._id, request.businessEmail)
+            const date = formatDateTOYMD(request.createdAt)
+            await requestSvc.sendApproved(request.name, request._id, request.businessEmail, date)
 
 
             res.json({
