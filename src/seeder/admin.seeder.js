@@ -9,6 +9,14 @@ const adminUsers = [{
     status: 'active'
 
 },
+{
+    name: 'Basanta Adhikari',
+    email: "kingbasanta11@gmail.com",
+    role: 'admin',
+    password: bcrypt.hashSync('Admin123#'),
+    status: 'active'
+
+},
 ]
 const populateAdmin = async () => {
     try {
